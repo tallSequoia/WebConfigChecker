@@ -4,13 +4,17 @@
 Identify security configurations issues in ASP.NET web.config files.
 
 ## Command line
+There is a command line "runner" that just applies a XSLT to a file, called `WCCheck.exe`. It's primarily a proof of concept and not intended for Production system use.
 
-There is a command line "runner" that just applies a XSLT to a file, called WCCheck.exe. It's primarily a proof of concept and not intended for Production system use.
+Just call `WCCheck.exe` with the path to the web.config. If you have a different location for the web_config.xsl file, that can be specified as the second parameter.
 
-Just call WCCheck.exe with the path to the web.config. If you have a different location for the web_config.xsl file, that can be specified as the second parameter.
+e.g. `WCCheck.exe "..\mysite\web.config"`
 
-e.g. WCCheck.exe "..\mysite\web.config"
-e.g. WCCheck.exe "..\mysite\web.config" "c:\users\tallSequoia\Desktop\myOwn.xslt"
+e.g. `WCCheck.exe "..\mysite\web.config" "c:\users\tallSequoia\Desktop\myOwn.xslt"`
+
+It can also apply to all web.config files under a file structure, just by specifying a directory instead of a file.
+
+e.g. `WCCheck.exe "..\mysite\"`
 
 ## Sample Results
     <?xml version="1.0" encoding="utf-16"?>
