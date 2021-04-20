@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- (c) Tall Sequoia. See License for your rights, obligations and liabilities -->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 
@@ -27,6 +30,21 @@
       <xsl:with-param name="value"><xsl:value-of select="./@value" /></xsl:with-param>
     </xsl:call-template>
   </xsl:for-each>
+
+  <xsl:if test="add[@key='aspnet:AllowAnonymousImpersonation'] and add[@value='true']"><finding class="warning">appSettings/aspnet:AllowAnonymousImpersonation is changed and should only be set by 'advanced developers'.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:AllowRelaxedHttpUserName'] and add[@value='true']"><finding class="warning">appSettings/aspnet:AllowRelaxedHttpUserName can pose a security risk.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:AllowRelaxedRelativeUrl'] and add[@value='true']"><finding class="warning">appSettings/aspnet:AllowRelaxedRelativeUrl can pose a security risk.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:JavaScriptDoNotEncodeAmpersand'] and add[@value='true']"><finding class="warning">appSettings/aspnet:JavaScriptDoNotEncodeAmpersand can pose a security risk.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:MaxHttpCollectionKeys'] and add[@value &gt; 1000]"><finding class="warning">appSettings/aspnet:MaxHttpCollectionKeys is set high and a 'large number' can pose a security risk.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:MaxJsonDeserializerMembers'] and add[@value &gt; 1000]"><finding class="warning">appSettings/aspnet:MaxJsonDeserializerMembers is set high and a 'large number' can pose a security risk.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:ScriptResourceAllowNonJsFiles'] and add[@value='true']"><finding class="error">appSettings/aspnet:ScriptResourceAllowNonJsFiles allows processing any failures.<recommendation>Rename script files on disk to end with .js instead</recommendation><references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:UpdatePanelMaxScriptLength'] and add[@value &gt; 2097152]"><finding class="information">appSettings/aspnet:UpdatePanelMaxScriptLength is set high which will send a lot of data to the user.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:UseLegacyEncryption'] and add[@value='true']"><finding class="error">appSettings/aspnet:UseLegacyEncryption is set to disable signing and validation of the signing of encrypted payloads.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:UseLegacyEventValidationCompatibility'] and add[@value='true']"><finding class="error">appSettings/aspnet:UseLegacyEventValidationCompatibility allows early .NET version compatability which is intended to be a temporary setting and 4.5 is long deprecated.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:UseLegacyFormsAuthenticationTicketCompatibility'] and add[@value='true']"><finding class="error">appSettings/aspnet:UseLegacyFormsAuthenticationTicketCompatibility is set to support .NET prior to version 4.0, which is long deprecated.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:UseLegacyMachineKeyEncryption'] and add[@value='true']"><finding class="error">appSettings/aspnet:UseLegacyMachineKeyEncryption is set to disable signing of payloads encrypted with the Encode API support.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:UseLegacyRequestUrlGeneration'] and add[@value='true']"><finding class="warning">appSettings/aspnet:UseLegacyRequestUrlGeneration is set to use less-standards compliant URIs.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
+  <xsl:if test="add[@key='aspnet:ServerCodeMappingSupport'] and add[@value='Enabled']"><finding class="warning">appSettings/aspnet:ServerCodeMappingSupport should be disabled for production usage.<references>https://docs.microsoft.com/en-us/previous-versions/aspnet/hh975440(v=vs.120)</references></finding></xsl:if>
 
 </xsl:template>
 
